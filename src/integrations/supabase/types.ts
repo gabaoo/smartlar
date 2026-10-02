@@ -14,13 +14,332 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      clientes: {
+        Row: {
+          created_at: string
+          email: string | null
+          endereco: string | null
+          id: string
+          nome: string
+          telefone: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          endereco?: string | null
+          id?: string
+          nome: string
+          telefone: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          endereco?: string | null
+          id?: string
+          nome?: string
+          telefone?: string
+        }
+        Relationships: []
+      }
+      historico_status: {
+        Row: {
+          created_at: string
+          id: string
+          pedido_id: string
+          status_anterior: string | null
+          status_novo: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          pedido_id: string
+          status_anterior?: string | null
+          status_novo: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          pedido_id?: string
+          status_anterior?: string | null
+          status_novo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "historico_status_pedido_id_fkey"
+            columns: ["pedido_id"]
+            isOneToOne: false
+            referencedRelation: "pedidos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "historico_status_pedido_id_fkey"
+            columns: ["pedido_id"]
+            isOneToOne: false
+            referencedRelation: "vw_instalacoes_amanha"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "historico_status_pedido_id_fkey"
+            columns: ["pedido_id"]
+            isOneToOne: false
+            referencedRelation: "vw_pedidos_detalhados"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      itens_pedido: {
+        Row: {
+          id: string
+          pedido_id: string
+          preco_unitario: number
+          produto_id: string
+          quantidade: number
+          subtotal: number | null
+        }
+        Insert: {
+          id?: string
+          pedido_id: string
+          preco_unitario: number
+          produto_id: string
+          quantidade: number
+          subtotal?: number | null
+        }
+        Update: {
+          id?: string
+          pedido_id?: string
+          preco_unitario?: number
+          produto_id?: string
+          quantidade?: number
+          subtotal?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "itens_pedido_pedido_id_fkey"
+            columns: ["pedido_id"]
+            isOneToOne: false
+            referencedRelation: "pedidos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "itens_pedido_pedido_id_fkey"
+            columns: ["pedido_id"]
+            isOneToOne: false
+            referencedRelation: "vw_instalacoes_amanha"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "itens_pedido_pedido_id_fkey"
+            columns: ["pedido_id"]
+            isOneToOne: false
+            referencedRelation: "vw_pedidos_detalhados"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "itens_pedido_produto_id_fkey"
+            columns: ["produto_id"]
+            isOneToOne: false
+            referencedRelation: "produtos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pedidos: {
+        Row: {
+          cliente_id: string
+          created_at: string
+          data_instalacao: string | null
+          forma_pagamento: string | null
+          id: string
+          numero: number
+          observacoes: string | null
+          status: string
+          tecnico_id: string | null
+          updated_at: string
+          valor_total: number
+        }
+        Insert: {
+          cliente_id: string
+          created_at?: string
+          data_instalacao?: string | null
+          forma_pagamento?: string | null
+          id?: string
+          numero?: number
+          observacoes?: string | null
+          status?: string
+          tecnico_id?: string | null
+          updated_at?: string
+          valor_total?: number
+        }
+        Update: {
+          cliente_id?: string
+          created_at?: string
+          data_instalacao?: string | null
+          forma_pagamento?: string | null
+          id?: string
+          numero?: number
+          observacoes?: string | null
+          status?: string
+          tecnico_id?: string | null
+          updated_at?: string
+          valor_total?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pedidos_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pedidos_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "vw_instalacoes_amanha"
+            referencedColumns: ["cliente_id"]
+          },
+          {
+            foreignKeyName: "pedidos_cliente_id_fkey"
+            columns: ["cliente_id"]
+            isOneToOne: false
+            referencedRelation: "vw_pedidos_detalhados"
+            referencedColumns: ["cliente_id"]
+          },
+          {
+            foreignKeyName: "pedidos_tecnico_id_fkey"
+            columns: ["tecnico_id"]
+            isOneToOne: false
+            referencedRelation: "tecnicos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "pedidos_tecnico_id_fkey"
+            columns: ["tecnico_id"]
+            isOneToOne: false
+            referencedRelation: "vw_instalacoes_amanha"
+            referencedColumns: ["tecnico_id"]
+          },
+          {
+            foreignKeyName: "pedidos_tecnico_id_fkey"
+            columns: ["tecnico_id"]
+            isOneToOne: false
+            referencedRelation: "vw_pedidos_detalhados"
+            referencedColumns: ["tecnico_id"]
+          },
+        ]
+      }
+      produtos: {
+        Row: {
+          categoria: string
+          created_at: string
+          descricao: string | null
+          id: string
+          nome: string
+          preco_unitario: number
+        }
+        Insert: {
+          categoria: string
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          nome: string
+          preco_unitario: number
+        }
+        Update: {
+          categoria?: string
+          created_at?: string
+          descricao?: string | null
+          id?: string
+          nome?: string
+          preco_unitario?: number
+        }
+        Relationships: []
+      }
+      tecnicos: {
+        Row: {
+          created_at: string
+          especialidade: string | null
+          id: string
+          nome: string
+          telefone: string | null
+        }
+        Insert: {
+          created_at?: string
+          especialidade?: string | null
+          id?: string
+          nome: string
+          telefone?: string | null
+        }
+        Update: {
+          created_at?: string
+          especialidade?: string | null
+          id?: string
+          nome?: string
+          telefone?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      vw_instalacoes_amanha: {
+        Row: {
+          cliente_email: string | null
+          cliente_endereco: string | null
+          cliente_id: string | null
+          cliente_nome: string | null
+          cliente_telefone: string | null
+          created_at: string | null
+          data_instalacao: string | null
+          forma_pagamento: string | null
+          id: string | null
+          numero: number | null
+          observacoes: string | null
+          status: string | null
+          tecnico_id: string | null
+          tecnico_nome: string | null
+          tecnico_telefone: string | null
+          updated_at: string | null
+          valor_total: number | null
+        }
+        Relationships: []
+      }
+      vw_pedidos_detalhados: {
+        Row: {
+          cliente_email: string | null
+          cliente_endereco: string | null
+          cliente_id: string | null
+          cliente_nome: string | null
+          cliente_telefone: string | null
+          created_at: string | null
+          data_instalacao: string | null
+          forma_pagamento: string | null
+          id: string | null
+          numero: number | null
+          observacoes: string | null
+          status: string | null
+          tecnico_id: string | null
+          tecnico_nome: string | null
+          tecnico_telefone: string | null
+          updated_at: string | null
+          valor_total: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      criar_pedido: {
+        Args: {
+          _cliente_id: string
+          _forma_pagamento: string
+          _itens: Json
+          _observacoes: string
+        }
+        Returns: string
+      }
+      transicao_valida: {
+        Args: { _de: string; _para: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
