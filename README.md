@@ -253,4 +253,4 @@ VITE_SUPABASE_PUBLISHABLE_KEY=...
 ## Uso de IA
 
 - **Lovable:** geração do frontend e do schema do Supabase a partir do escopo do teste.
-- **Claude (Anthropic):** leitura do enunciado, geração dos workflows n8n (JSON), revisão do banco e escrita deste README. O funcionamento e as decisões foram revisados por quem submeteu o projeto.
+- **Claude (Anthropic):** leitura do enunciado, geração dos workflows n8n (JSON), revisão do banco. O funcionamento e as decisões foram revisados por quem submeteu o projeto.
