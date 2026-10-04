@@ -79,10 +79,10 @@ export type PedidoFull = Pedido & {
   })[];
 };
 
-async function unwrap<T>(p: PromiseLike<{ data: T | null; error: unknown }>): Promise<T> {
+async function unwrap<T>(p: PromiseLike<{ data: T; error: unknown }>): Promise<NonNullable<T>> {
   const { data, error } = await p;
   if (error) throw error;
-  return data as T;
+  return data as NonNullable<T>;
 }
 
 export const api = {
