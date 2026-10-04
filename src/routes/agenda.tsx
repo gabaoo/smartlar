@@ -28,7 +28,7 @@ function AgendaPage() {
   const [showDone, setShowDone] = useState(false);
 
   useEffect(() => {
-    if (!tec && tecnicos.data?.length) setTec(tecnicos.data[0].id);
+    if (!tec && tecnicos.data?.length) setTec(tecnicos.data[0]!.id);
   }, [tecnicos.data, tec]);
 
   const list = (pedidos.data ?? [])
